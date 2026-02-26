@@ -1,32 +1,37 @@
 # Venue Pair Finder - Coding Challenge
 
 ## 📌 Overview
-This is a simple TypeScript solution to find two different venues whose shares add up to a specific target number. The goal was to create a solution that is easy to read, fast, and works well even with a lot of data.
+This is a TypeScript-based solution designed to find two distinct indices in a `venues` array whose values sum up to a specific `target`. The solution is optimized to handle large datasets (millones of records) efficiently.
 
-## 🚀 How I Solved It
+## 🚀 The Approach
+Instead of using a nested loop (which would be very slow for large inputs), I implemented a **Map-based search**:
+* As we iterate through the array, we calculate the "partner" number (complement) needed to reach the target.
+* We use a **Map** to store numbers we have already seen. This allows us to check if the partner exists in constant time.
+* This ensures the application remains fast and responsive regardless of the input size.
 
-### The Approach
-Instead of checking every possible pair with two loops (which would be very slow for millions of records), I used a **Map**. 
-* As the code reads each number, it calculates what other number is needed to reach the target.
-* It checks if that "partner" number was already seen.
-* This makes the search almost instant, regardless of the list size.
+## 📂 Project Structure
+To keep the code organized and follow best practices, I separated the logic from the validation:
+* `findVenuePair.ts`: Contains the core logic and the exported function.
+* `findVenuePair.test.ts`: Contains the test suite and performance benchmarks.
 
-### Project Structure
-I separated the code into two files to keep things clean:
-* `findVenuePair.ts`: Contains the main function logic.
-* `findVenuePair.test.ts`: Contains all the tests to make sure everything works correctly.
-
-## 🧪 Testing
-I included several tests to cover different situations:
-* **The basic example:** Checking if `[120, 80, 40, 60]` with target `100` returns the right indices.
-* **No result:** Making sure it returns `null` if no pair is found.
-* **Duplicates:** Checking that it can handle cases like `[50, 50]` correctly.
-* **Performance:** I added a test with **1,000,000 items** to make sure the code doesn't slow down or crash with large inputs.
+## 🧪 Testing Suite
+I used the **Node.js native test runner** to keep the project lightweight and avoid heavy external dependencies. The tests cover:
+* **Core Requirements:** Validating the example provided in the challenge.
+* **Edge Cases:** Handling scenarios with no results, duplicate values, and targets larger than the inputs.
+* **Performance:** A stress test with **1,000,000 records** to ensure the code handles high loads without issues.
 
 ## ⚙️ How to Run
 
-### Run the Logic
-If you want to run the script:
+### 1. Install Dependencies
+Install the necessary development types and the TypeScript runner:
+```bash
+npm install
+```
+### 2. Run the Logic File 
 ```bash
 npx tsx findVenuePair.ts
-// ts-node findVenuePair.ts
+```
+### 3. Run the Tests (Recommended)
+```bash
+npx tsx --test findVenuePair.test.ts
+```
